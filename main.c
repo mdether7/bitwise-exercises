@@ -37,7 +37,7 @@
 
 int binary_is_lsb_set(int num)
 {
-  return num & 1;
+  return num & 1U;
 }
 
 int binary_is_msb_set(int num)
@@ -56,27 +56,40 @@ int binary_count_leading_zeros(int num)
   return zeros;
 }
 
-// int binary_is_nth_bit_set(int num, int n)
-// {
+int binary_is_nth_bit_set(int num, int n)
+{
+  if (n == 1)
+  {
+    return num & 1U;
+  }
+  else
+  {
+    return (num & (1U << n));
+  }
+}
 
-// }
-
-enum operation { LSB_CHECK = 0, LEADING_ZEROS };
+enum operation { LSB_CHECK = 0, MSB_CHECK, LEADING_ZEROS, NTH_BIT_CHECK };
 
 int main(void)
 {
-  int number = 43543;
+  int number = 2; /* Temporary stuff */
+  int bit_place = 1;
   char* message;
-  enum operation type = LEADING_ZEROS;
 
+  enum operation type = NTH_BIT_CHECK;
   switch (type)
   {
     case LSB_CHECK:
+    case MSB_CHECK: /*Supress warinngs...*/
       message = binary_is_lsb_set(number) ? "LSB present!" : "LSB not present!";
       printf("%s\n", message);
       break;
     case LEADING_ZEROS:
       printf("Number %d has %d leading zeros\n", number, binary_count_leading_zeros(number));
+      break;
+    case NTH_BIT_CHECK:
+      message = binary_is_nth_bit_set(number, bit_place) ? "Nth bit is present" : "Nth bit is not present";
+      printf("%s\n", message);
       break;
   }
   return 0;
