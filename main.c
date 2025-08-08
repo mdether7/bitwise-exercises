@@ -35,20 +35,31 @@
 #define BIT_POS_31  1073741824
 #define BIT_POS_32  2147483648U
 
-int binary_lsb_is_set(int num)
+int binary_is_lsb_set(int num)
 {
   return num & 1;
 }
 
+int binary_is_msb_set(int num)
+{
+  int shift = (sizeof(int) * 8) - 1; /* Start at most significant bit */
+  return num & (1U << shift);
+}
+
 int binary_count_leading_zeros(int num)
 {
-  int shift = 31; /* Start at most significant bit */
+  int shift = (sizeof(int) * 8) - 1;
   int zeros = 0;
-  while (!(num & (1 << shift--))) {
+  while (!(num & (1U << shift--))) {
      zeros++;
   }
   return zeros;
 }
+
+// int binary_is_nth_bit_set(int num, int n)
+// {
+
+// }
 
 enum operation { LSB_CHECK = 0, LEADING_ZEROS };
 
@@ -61,7 +72,7 @@ int main(void)
   switch (type)
   {
     case LSB_CHECK:
-      message = binary_lsb_is_set(number) ? "LSB present!" : "LSB not present!";
+      message = binary_is_lsb_set(number) ? "LSB present!" : "LSB not present!";
       printf("%s\n", message);
       break;
     case LEADING_ZEROS:
