@@ -1,3 +1,4 @@
+/* binary.c */
 #include "binary.h"
 
 /* Thank god i just used << in count leading zeros XD */

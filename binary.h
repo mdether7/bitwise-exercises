@@ -1,5 +1,6 @@
-#ifndef MY_BINARY_H
-#define MY_BINARY_H
+/* binary.h */
+#ifndef BINARY_H
+#define BINARY_H
 
 int binary_is_lsb_set(int num);
 int binary_is_msb_set(int num);
@@ -8,4 +9,4 @@ int binary_is_nth_bit_set(int num, int n);
 void binary_set_nth_bit(int* num, int n);
 void binary_clear_nth_bit(int* num, int n);
 
-#endif
+#endif /* BINARY_H */
