@@ -1,15 +1,16 @@
 #include "binary.h"
 #include <stdio.h>
 
-enum operation { LSB_CHECK = 0, MSB_CHECK, LEADING_ZEROS, NTH_BIT_CHECK };
+enum operation { LSB_CHECK = 0, MSB_CHECK, LEADING_ZEROS, NTH_BIT_CHECK,
+                 SET_NTH_BIT, CLEAR_NTH_BIT };
 
 int main(void)
 {
   int number = 2; /* Temporary stuff */
-  int bit_place = 1;
+  int bit_place = 2;
   char* message;
 
-  enum operation type = NTH_BIT_CHECK;
+  enum operation type = CLEAR_NTH_BIT;
   switch (type)
   {
     case LSB_CHECK:
@@ -23,6 +24,14 @@ int main(void)
     case NTH_BIT_CHECK:
       message = binary_is_nth_bit_set(number, bit_place) ? "Nth bit is present" : "Nth bit is not present";
       printf("%s\n", message);
+      break;
+    case SET_NTH_BIT:
+      binary_set_nth_bit(&number, bit_place);
+      printf("NUMBER AFTER SET NTH BIT: %d\n", number);
+      break;
+    case CLEAR_NTH_BIT:
+      binary_clear_nth_bit(&number, bit_place);
+      printf("NUMBER AFTER CLEAR NTH BIT: %d\n", number);
       break;
   }
   return 0;

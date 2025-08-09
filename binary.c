@@ -37,13 +37,13 @@
 
 int binary_is_lsb_set(int num)
 {
-  return num & 1U;
+  return ((num & 1U) != 0);
 }
 
 int binary_is_msb_set(int num)
 {
   int shift = (sizeof(int) * 8) - 1; /* Start at most significant bit */
-  return num & (1U << shift);
+  return ((num & (1U << shift)) != 0);
 }
 
 int binary_count_leading_zeros(int num)
@@ -58,12 +58,21 @@ int binary_count_leading_zeros(int num)
 
 int binary_is_nth_bit_set(int num, int n)
 {
-  if (n == 1)
-  {
-    return num & 1U;
-  }
-  else
-  {
-    return (num & (1U << n));
-  }
+  return ((num & (1U << (n - 1))) != 0);
 }
+
+void binary_set_nth_bit(int* num, int n)
+{
+  *num |= (1U << (n - 1));
+}
+
+void binary_clear_nth_bit(int* num, int n)
+{
+  *num &= ~(1U << (n - 1));
+}
+
+void binary_toggle_nth_bit(int* num, int n)
+{
+  *num ^= (1U << (n - 1));
+}
+

@@ -5,5 +5,7 @@ int binary_is_lsb_set(int num);
 int binary_is_msb_set(int num);
 int binary_count_leading_zeros(int num);
 int binary_is_nth_bit_set(int num, int n);
+void binary_set_nth_bit(int* num, int n);
+void binary_clear_nth_bit(int* num, int n);
 
 #endif
