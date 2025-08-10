@@ -4,7 +4,7 @@
 #define SHORT_WIDTH 16
 #define INT_WIDTH 32
 
-int number_init(struct number* n)
+static int number_init(struct number* n)
 {
   n->i = 0;
   n->s = 0;
@@ -12,16 +12,32 @@ int number_init(struct number* n)
   return 0;
 }
 
+static int selection_init(struct selection* sel)
+{
+  sel->selected_bit = 1; /* LSB set as the default */
+  sel->selected_type = SCHAR; /* */
+  return 0;
+}
+
+static int binarotator_init(struct number* num, struct selection* sel)
+{
+  number_init(num);
+  selection_init(sel);
+  return 0;
+}
+
 int main(void)
 {
   struct number num;
-  enum selected_number sel;
-  sel = SSHORT;
-  number_init(&num);
+  struct selection sel;
+  binarotator_init(&num, &sel);
   display_init();
-
-  display_update(&num, sel);
-  wait();
+  int quit = 0;
+  while (!quit) 
+  {
+    display_update(&num, &sel);
+    wait();
+  }
   display_shutdown();
   return 0;
 }

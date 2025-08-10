@@ -1,24 +1,32 @@
 /* binarotator.h */
-
 #ifndef BINAROTATOR_H
 #define BINAROTATOR_H
 
 #define UNUSED __attribute__((unused))
 
+#define CHAR_WIDTH 8
+#define SHORT_WIDTH 16
+#define INT_WIDTH 32
+
+/* XXX enums */
+enum number_type { SCHAR = 0, SSHORT, SINT };
+
 /* XXX structs */
 struct number {
-  int i;
-  short s;
+  int i; /* Stores all three distinct available */
+  short s; /* types for bit manupulation */
   char c;
 };
 
-/* XXX enums */
-enum selected_number { SCHAR = 0, SSHORT, SINT };
+struct selection {
+  int selected_bit;
+  enum number_type selected_type;
+};
 
 /* XXX display.c */
 int display_init(void);
 int display_shutdown(void);
-void display_update(struct number* num, enum selected_number sel);
+void display_update(struct number* num, struct selection* sel);
 void wait(void);
 
 /* XXX binary.h */
