@@ -12,9 +12,9 @@ $(PROGRAM): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ $<
 
-main.o: main.c display.h binary.h 
-binary.o: binary.c binary.h
-display.o: display.c display.h
+main.o: main.c binarotator.h
+binary.o: binary.c binarotator.h
+display.o: display.c binarotator.h
 
 clean: # make clean after running and debugging for example
 	rm -f $(OBJS) $(PROGRAM)

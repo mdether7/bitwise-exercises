@@ -1,5 +1,5 @@
 /* binary.c */
-#include "binary.h"
+#include "binarotator.h"
 
 /* Thank god i just used << in count leading zeros XD */
 /* Im leavin it here just for the record */
