@@ -1,9 +1,5 @@
 #include"binarotator.h"
 
-#define INT_WIDTH 32
-#define SHORT_WIDTH 16
-#define CHAR_WIDTH 8
-
 static int number_init(struct number* n)
 {
   n->int_value = 0;
@@ -14,9 +10,14 @@ static int number_init(struct number* n)
 
 static int selection_init(struct selection* sel)
 {
-  sel->selected_bit = 1; /* LSB set as the default */
-  sel->selected_type = SCHAR; /* */
+  sel->selected_bit = 31; /* LSB set as the default */
+  sel->selected_type = SIGNED_INT; /* */
   return 0;
+}
+
+UNUSED static void change_selected_type(struct selection* sel)
+{
+
 }
 
 static int binarotator_init(struct number* num, struct selection* sel)

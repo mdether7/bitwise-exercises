@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 /* XXX enums */
-enum number_type { SCHAR = 0, SSHORT, SINT };
+enum number_type { SIGNED_CHAR = 0, SIGNED_SHORT, SIGNED_INT };
 
 /* XXX structs */
 struct number {

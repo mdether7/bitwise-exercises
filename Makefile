@@ -1,17 +1,17 @@
 PROGRAM= bitwise
 CC= cc
-CSTD= -std=c99
-CFLAGS= -c -g -Wall
+STD= -std=c99
+CFLAGS= -c -g -Wall -Werror
 LFLAGS= -lncurses -lpanel
 OBJS= main.o binary.o display.o
 
 all: $(PROGRAM)
 
 $(PROGRAM): $(OBJS)
-	$(CC) $(CSTD) $(OBJS) -o $(PROGRAM) $(LFLAGS)
+	$(CC) $(OBJS) -o $(PROGRAM) $(LFLAGS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $(STD) $(CFLAGS) -o $@ $<
 
 main.o: main.c binarotator.h
 binary.o: binary.c binarotator.h
