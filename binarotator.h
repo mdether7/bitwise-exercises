@@ -2,20 +2,22 @@
 #ifndef BINAROTATOR_H
 #define BINAROTATOR_H
 
+/* XXX my defines */
 #define UNUSED __attribute__((unused))
-
 #define CHAR_WIDTH 8
 #define SHORT_WIDTH 16
 #define INT_WIDTH 32
+
+#include <stdint.h>
 
 /* XXX enums */
 enum number_type { SCHAR = 0, SSHORT, SINT };
 
 /* XXX structs */
 struct number {
-  int i; /* Stores all three distinct available */
-  short s; /* types for bit manupulation */
-  char c;
+  int32_t int_value; /* Stores all three distinct available */
+  int16_t short_value; /* types for bit manupulation */
+  int8_t char_value;
 };
 
 struct selection {

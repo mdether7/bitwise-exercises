@@ -1,14 +1,14 @@
 #include"binarotator.h"
 
-#define CHAR_WIDTH 8
-#define SHORT_WIDTH 16
 #define INT_WIDTH 32
+#define SHORT_WIDTH 16
+#define CHAR_WIDTH 8
 
 static int number_init(struct number* n)
 {
-  n->i = 0;
-  n->s = 0;
-  n->c = 0;
+  n->int_value = 0;
+  n->short_value = 0;
+  n->char_value = 0;
   return 0;
 }
 

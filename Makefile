@@ -1,5 +1,6 @@
 PROGRAM= bitwise
 CC= cc
+CSTD= -std=c99
 CFLAGS= -c -g -Wall
 LFLAGS= -lncurses -lpanel
 OBJS= main.o binary.o display.o
@@ -7,7 +8,7 @@ OBJS= main.o binary.o display.o
 all: $(PROGRAM)
 
 $(PROGRAM): $(OBJS)
-	$(CC) $(OBJS) -o $(PROGRAM) $(LFLAGS)
+	$(CC) $(CSTD) $(OBJS) -o $(PROGRAM) $(LFLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ $<
