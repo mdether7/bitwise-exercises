@@ -20,9 +20,8 @@ static void draw_signed_int_bits(int signed_i, struct selection* sel);
 static void draw_signed_short_bits(int signed_s, struct selection* sel);
 static void draw_signed_char_bits(int signed_c, struct selection* sel);
 static void draw_bits_heads_up(struct selection* sel);
-static const char* number_type_to_string(enum number_type type);
 
-int display_init(void)
+int display_init(struct numbers* num, struct selection* sel)
 {
   initscr();
   noecho();
@@ -37,8 +36,7 @@ int display_init(void)
 	wclear(info_window);
   wattron(rotator_window, A_BOLD);
   wattron(info_window, A_BOLD);
-  update_panels();
-	doupdate();
+  display_update(num, sel);
   return 0;
 }
 
@@ -58,6 +56,8 @@ int display_shutdown(void)
 
 void display_update(struct numbers* num, struct selection* sel)
 {
+  wclear(rotator_window);
+  wclear(info_window);
   draw_rotator(num, sel);
   draw_info(num, sel);
   update_panels();
@@ -77,28 +77,17 @@ enum tool_command get_command(void)
       case KEY_UP:
       case KEY_DOWN:
         return TOGGLE_BIT;
+      case ' ': /* space */
+        return SWITCH_TYPE;
       case 'a':
       case KEY_LEFT:
         return MOVE_LEFT;
       case 'd':
       case KEY_RIGHT:
         return MOVE_RIGHT;
+      case '\x1b': /* escape */
+        return QUIT;
     }
-  }
-}
-
-static const char* number_type_to_string(enum number_type type)
-{
-  switch(type)
-  {
-    case SIGNED_CHAR:
-      return "Signed char";
-    case SIGNED_SHORT:
-      return "Signed short";
-    case SIGNED_INT:
-      return "Signed int";
-    default:
-      return "???";
   }
 }
 
@@ -222,7 +211,21 @@ static void draw_info(struct numbers* num, struct selection* sel)
   box(info_window, ACS_VLINE, ACS_HLINE);
   mvwaddstr(info_window, 0, 3, "INFO");
   mvwprintw(info_window, 1, 1, "Type: %s", number_type_to_string(sel->selected_type));
-  mvwprintw(info_window, 2, 1, "Decimal: %d", num->int_value);
+  switch (sel->selected_type)
+  {
+    case SIGNED_INT:
+      mvwprintw(info_window, 2, 1, "Decimal: %d (%d-bit)", num->int_value, INT_WIDTH);
+      break;
+    case SIGNED_SHORT:
+      mvwprintw(info_window, 2, 1, "Decimal: %d (%d-bit)", num->short_value, SHORT_WIDTH);
+      break;
+    case SIGNED_CHAR:
+      mvwprintw(info_window, 2, 1, "Decimal: %d (%d-bit)", num->char_value, CHAR_WIDTH);
+      break;
+    default:
+      mvwprintw(info_window, 2, 1, "Decimal: ???");
+      break;
+  }
   mvwprintw(info_window, 3, 1, "Selected bit: %d", sel->selected_bit);
 }
 

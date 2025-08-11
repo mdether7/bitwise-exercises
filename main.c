@@ -4,6 +4,10 @@
 static int binarotator_init(struct numbers* num, struct selection* sel);
 static int number_init(struct numbers* n);
 static int selection_init(struct selection* sel);
+static void do_command(enum tool_command cmd, struct numbers* num, struct selection* sel);
+static void toggle_selected_bit(struct numbers* num, struct selection* sel);
+static void cycle_through_types(struct selection* sel);
+static void move_through_bits(struct selection* sel, int direction);
 
 static int number_init(struct numbers* n)
 {
@@ -27,39 +31,62 @@ static int binarotator_init(struct numbers* num, struct selection* sel)
   return 0;
 }
 
-static void do_command(enum tool_command cmd)
+static void cycle_through_types(struct selection* sel)
 {
+  sel->selected_bit = 1; /* default to LSB at change */
+  int current_type = sel->selected_type;
+  current_type = (current_type + 1) % TOTAL_TYPES;
+  sel->selected_type = current_type;
+}
+
+static void toggle_selected_bit(struct numbers* num, struct selection* sel)
+{
+
+}
+
+static void move_through_bits(struct selection* sel, int direction)
+{
+
+}
+
+static void do_command(enum tool_command cmd, struct numbers* num, struct selection* sel)
+{
+  (void)num; /* unused */
   switch (cmd)
   {
     case TOGGLE_BIT:
-      printmsg("UFO BIT");
+      toggle_selected_bit(num, sel);
+      break;
+    case SWITCH_TYPE:
+      cycle_through_types(sel);
       break;
     case MOVE_LEFT:
-      printmsg("LEFT UFO");
+      move_through_bits(sel, LEFT);
       break;
     case MOVE_RIGHT:
-      printmsg("RIGHT UFO");
+      move_through_bits(sel, RIGHT);
       break;
     default:
       return;
   }
 }
 
-
 int main(void)
 {
   struct numbers num;
   struct selection sel;
   binarotator_init(&num, &sel);
-  display_init();
+  display_init(&num, &sel);
 
   enum tool_command cmd;
-  int quit = 0;
-  while (!quit) 
+  while (1) 
   {
-    display_update(&num, &sel);
     cmd = get_command();
-    do_command(cmd);
+    if (cmd == QUIT) {
+      break;
+    }
+    do_command(cmd, &num, &sel);
+    display_update(&num, &sel);
   }
   display_shutdown();
   return 0;

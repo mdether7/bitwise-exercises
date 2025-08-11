@@ -4,15 +4,20 @@
 
 /* XXX my defines */
 #define UNUSED __attribute__((unused))
+
+#define TOTAL_TYPES 3
 #define CHAR_WIDTH 8
 #define SHORT_WIDTH 16
 #define INT_WIDTH 32
 
+#define LEFT 0
+#define RIGHT 1
+
 #include <stdint.h>
 
 /* XXX enums */
-enum number_type { SIGNED_CHAR = 0, SIGNED_SHORT, SIGNED_INT };
-enum tool_command { TOGGLE_BIT = 0, MOVE_LEFT, MOVE_RIGHT };
+enum number_type { SIGNED_INT = 0, SIGNED_SHORT, SIGNED_CHAR };
+enum tool_command { TOGGLE_BIT = 0, SWITCH_TYPE, MOVE_LEFT, MOVE_RIGHT, QUIT };
 
 /* XXX structs */
 struct numbers {
@@ -27,7 +32,7 @@ struct selection {
 };
 
 /* XXX display.c */
-int display_init(void);
+int display_init(struct numbers* num, struct selection* sel);
 int display_shutdown(void);
 void display_update(struct numbers* num, struct selection* sel);
 enum tool_command get_command(void);
@@ -43,5 +48,6 @@ void binary_set_nth_bit(int* num, int n);
 void binary_clear_nth_bit(int* num, int n);
 
 /* XXX utility.c */
+const char* number_type_to_string(enum number_type type);
 
 #endif
