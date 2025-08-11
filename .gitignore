@@ -1,3 +1,4 @@
 bitwise
 *.o
 *.exe
+.vscode/
