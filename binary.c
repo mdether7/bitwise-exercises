@@ -1,5 +1,6 @@
 /* binary.c */
 #include "binarotator.h"
+#include <stdint.h>
 
 /* Thank god i just used << in count leading zeros XD */
 /* Im leavin it here just for the record */
@@ -72,8 +73,19 @@ void binary_clear_nth_bit(int* num, int n)
   *num &= ~(1U << (n - 1));
 }
 
-void binary_toggle_nth_bit(int* num, int n)
+void binary_toggle_nth_bit_int(int32_t* num, int n)
 {
   *num ^= (1U << (n - 1));
 }
+
+void binary_toggle_nth_bit_short(int16_t* num, int n)
+{
+  *num ^= (1U << (n - 1));
+}
+
+void binary_toggle_nth_bit_char(int8_t* num, int n)
+{
+  *num ^= (1U << (n - 1));
+}
+
 

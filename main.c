@@ -41,17 +41,36 @@ static void cycle_through_types(struct selection* sel)
 
 static void toggle_selected_bit(struct numbers* num, struct selection* sel)
 {
-
+  switch (sel->selected_type)
+  {
+    case SIGNED_INT:
+      binary_toggle_nth_bit_int(&num->int_value, sel->selected_bit);
+      break;
+    case SIGNED_SHORT:
+      binary_toggle_nth_bit_short(&num->short_value, sel->selected_bit);
+      break;
+    case SIGNED_CHAR:
+      binary_toggle_nth_bit_char(&num->char_value, sel->selected_bit);
+      break;
+    default:
+      break;
+  }
 }
 
 static void move_through_bits(struct selection* sel, int direction)
 {
-
+  if (direction == LEFT)
+  {
+    sel->selected_bit = wrap(sel->selected_bit + 1, 1, selected_number_width(sel));
+  }
+  else /* RIGHT */
+  {
+    sel->selected_bit = wrap(sel->selected_bit - 1, 1, selected_number_width(sel));
+  }
 }
 
 static void do_command(enum tool_command cmd, struct numbers* num, struct selection* sel)
 {
-  (void)num; /* unused */
   switch (cmd)
   {
     case TOGGLE_BIT:

@@ -30,7 +30,7 @@ int display_init(struct numbers* num, struct selection* sel)
   cbreak();
   rotator_window = newwin(7, 46, 0, 0);
   rotator_panel = new_panel(rotator_window);
-  info_window = newwin(7, 20, 0, 46);
+  info_window = newwin(7, 30, 0, 46);
   info_panel = new_panel(info_window);
   wclear(rotator_window);
 	wclear(info_window);
@@ -229,8 +229,9 @@ static void draw_info(struct numbers* num, struct selection* sel)
   mvwprintw(info_window, 3, 1, "Selected bit: %d", sel->selected_bit);
 }
 
+/* debug only */
 void printmsg(const char* msg)
-{
+{ 
   mvaddstr(20, 10, msg);
 }
 

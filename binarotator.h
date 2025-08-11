@@ -36,6 +36,7 @@ int display_init(struct numbers* num, struct selection* sel);
 int display_shutdown(void);
 void display_update(struct numbers* num, struct selection* sel);
 enum tool_command get_command(void);
+/* debug only */
 void printmsg(const char* msg);
 void wait(void);
 
@@ -46,8 +47,14 @@ int binary_count_leading_zeros(int num);
 int binary_is_nth_bit_set(int num, int n);
 void binary_set_nth_bit(int* num, int n);
 void binary_clear_nth_bit(int* num, int n);
+/* \/ Used ones | Not used ones /\ */
+void binary_toggle_nth_bit_int(int32_t* num, int n);
+void binary_toggle_nth_bit_short(int16_t* num, int n);
+void binary_toggle_nth_bit_char(int8_t* num, int n);
 
 /* XXX utility.c */
 const char* number_type_to_string(enum number_type type);
+int selected_number_width(struct selection* sel);
+int wrap(int val, int min, int max);
 
 #endif
