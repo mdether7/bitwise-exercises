@@ -87,5 +87,3 @@ void binary_toggle_nth_bit_char(int8_t* num, int n)
 {
   *num ^= (1U << (n - 1));
 }
-
-

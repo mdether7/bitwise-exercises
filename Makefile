@@ -1,4 +1,4 @@
-PROGRAM= bitwise
+PROGRAM= Binarotator
 CC= cc
 STD= -std=c99
 CFLAGS= -c -g -Wall -Werror -Wextra
